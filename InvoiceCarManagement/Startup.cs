@@ -18,6 +18,7 @@ namespace InvoiceCarManagement
 {
     public class Startup
     {
+        //Omda
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
