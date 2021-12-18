@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace InvoiceCarManagement.Implement_interfaces
 {
-    public class InvoiceRepository : BaseServiceRepository<InvoiceProduct>, InterfaceInvoice
+    public class InvoiceDetailsRepository : BaseServiceRepository<InvoiceDetails>, InterfaceDetails
     {
-
         private readonly ApplicationDbContext _context;
 
-        public InvoiceRepository(ApplicationDbContext context) : base(context)
+        public InvoiceDetailsRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

@@ -9,16 +9,14 @@ namespace InvoiceCarManagement.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+
 
         }
 
-        public object InvoiceProductDto { get; internal set; }
+        public DbSet<InvoiceProduct> invoiceProducts { get; set; }
 
-        internal Task<List<InvoiceProduct>> ToList()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

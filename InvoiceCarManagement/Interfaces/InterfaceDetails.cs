@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InvoiceCarManagement.Interfaces
 {
-   public interface InterfaceInvoice : IBaseService<InvoiceProduct>
+    interface InterfaceDetails : IBaseService<InvoiceDetails>
     {
 
     }

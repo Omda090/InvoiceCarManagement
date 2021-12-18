@@ -1,4 +1,7 @@
+using AutoMapper;
 using InvoiceCarManagement.Data;
+using InvoiceCarManagement.Implement_interfaces;
+using InvoiceCarManagement.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,7 +42,9 @@ namespace InvoiceCarManagement
             services.AddDbContext<ApplicationDbContext>(options =>
        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-
+            services.AddScoped<InterfaceInvoice, InvoiceRepository>();
+            services.AddScoped<InterfaceInvoice, InvoiceDetails >();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

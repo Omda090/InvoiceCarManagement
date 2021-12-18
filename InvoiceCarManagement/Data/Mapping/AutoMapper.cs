@@ -13,6 +13,11 @@ namespace InvoiceCarManagement.Data.Mapping
         public AutoMapper()
         {
             CreateMap<InvoiceProduct, InvoiceProductDto>();
+            CreateMap<InvoiceProductDto, InvoiceProduct>();
+
+            CreateMap<InvoiceDetails, InvoiceDetailsDto>();
+            CreateMap<InvoiceDetailsDto, InvoiceDetails>();
+
         }
     }
 }

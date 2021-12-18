@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvoiceCarManagement.Dto;
+using InvoiceCarManagement.Implement_interfaces;
 using InvoiceCarManagement.Interfaces;
 using InvoiceCarManagement.Models;
 using Microsoft.AspNetCore.Http;
@@ -40,31 +41,31 @@ namespace InvoiceCarManagement.Controllers
             return Ok(await _interfaceInvoice.GetById(id));
         }
 
+
         [HttpPost("CreateInvoice")]
-        public async Task<IActionResult> CreateInvoice(InvoiceProductDto invoiceProductDto)
+        public async Task<IActionResult> CreateInvoice(InvoiceProductDto invoiceProducts)
         {
 
-            var InvoiceToCreate = _mapper.Map<InvoiceProduct>(invoiceProductDto);
+            var InvoiceToCreate = _mapper.Map<InvoiceProduct>(invoiceProducts);
             _interfaceInvoice.Add(InvoiceToCreate);
             await _interfaceInvoice.SaveChanges();
             return Ok(InvoiceToCreate);
 
         }
 
-        [HttpDelete("DeleteSector")]
-        public async Task<IActionResult> DeleteSector(decimal id)
+        [HttpDelete("DeleteInvoice")]
+        public async Task<IActionResult> DeleteInvoice(int id)
         {
-            var exitsCurrency = await _sectors.GetById(id);
+            var exitsCurrency = await _interfaceInvoice.GetById(id);
 
 
-            //check if Currency exit or not 
             if (exitsCurrency != null)
             {
 
                 //save changes
-                _sectors.Remove(exitsCurrency);
-                await _sectors.SaveAll();
-                return Ok(" sectors Deleted Successfully");
+                _interfaceInvoice.Remove(exitsCurrency);
+                await _interfaceInvoice.SaveChanges();
+                return Ok(" interfaceInvoice Deleted Successfully");
             }
             else
             {
@@ -72,23 +73,26 @@ namespace InvoiceCarManagement.Controllers
             }
         }
 
-        [HttpPut("UpdateSector")]
-        public async Task<IActionResult> UpdateSector(int id, SectorDto sectors)
+
+
+
+
+        [HttpPut("UpdateInvoice")]
+        public async Task<IActionResult> UpdateInvoice(int id, InvoiceProductDto invoiceproduct)
         {
-            var exitsCurrency = await _sectors.GetById(id);
+            var exitsInvoice = await _interfaceInvoice.GetById(id);
 
 
-            //Update Currency Detials
-            exitsCurrency.SectorCode = sectors.SectorCode;
-            exitsCurrency.SectorName = sectors.SectorName;
-            exitsCurrency.IsoCode = sectors.IsoCode;
-            exitsCurrency.CenterBankCode = sectors.CenterBankCode;
-            exitsCurrency.SectorForeignname = sectors.SectorForeignname;
+            //Update Invoice Detials
+            exitsInvoice.CarName = invoiceproduct.CarName;
+            exitsInvoice.Model = invoiceproduct.Model;
+            exitsInvoice.Price = invoiceproduct.Price;
+            exitsInvoice.Quentity = invoiceproduct.Quentity;
             //Save Changes
-            await _sectors.SaveAll();
+            await _interfaceInvoice.SaveChanges();
 
 
-            return Ok(" sectors Updated Successfully ");
+            return Ok(" interfaceInvoice Updated Successfully ");
         }
 
     }
