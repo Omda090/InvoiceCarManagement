@@ -15,6 +15,6 @@ namespace InvoiceCarManagement.Models
         public string Desc { get; set; }
         public string Color { get; set; }
 
-
+        public virtual ICollection<InvoiceDetails>  InvoiceDetails { get; set; }
     }
 }

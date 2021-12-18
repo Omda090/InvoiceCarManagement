@@ -43,8 +43,12 @@ namespace InvoiceCarManagement
        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<InterfaceInvoice, InvoiceRepository>();
-           // services.AddScoped<InterfaceInvoice, InvoiceDetailsRepository>();
+           services.AddScoped<InterfaceDetails, InvoiceDetailsRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

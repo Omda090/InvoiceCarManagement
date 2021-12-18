@@ -16,6 +16,7 @@ namespace InvoiceCarManagement.Data
         }
 
         public DbSet<InvoiceProduct> invoiceProducts { get; set; }
+        public DbSet<InvoiceDetails> InvoiceDetailes { get; set; }
 
         
     }

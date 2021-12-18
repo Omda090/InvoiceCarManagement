@@ -4,14 +4,16 @@ using InvoiceCarManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InvoiceCarManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211218144625_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +37,6 @@ namespace InvoiceCarManagement.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InvoiceProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -48,8 +47,6 @@ namespace InvoiceCarManagement.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("InvoiceProductId");
 
                     b.ToTable("InvoiceDetailes");
                 });
@@ -82,22 +79,6 @@ namespace InvoiceCarManagement.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("invoiceProducts");
-                });
-
-            modelBuilder.Entity("InvoiceCarManagement.Models.InvoiceDetails", b =>
-                {
-                    b.HasOne("InvoiceCarManagement.Models.InvoiceProduct", "InvoiceProduct")
-                        .WithMany("InvoiceDetails")
-                        .HasForeignKey("InvoiceProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("InvoiceProduct");
-                });
-
-            modelBuilder.Entity("InvoiceCarManagement.Models.InvoiceProduct", b =>
-                {
-                    b.Navigation("InvoiceDetails");
                 });
 #pragma warning restore 612, 618
         }

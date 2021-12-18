@@ -18,11 +18,13 @@ namespace InvoiceCarManagement.Controllers
     {
         private readonly InterfaceInvoice _interfaceInvoice;
         private readonly IMapper _mapper;
+        private readonly InterfaceDetails _interfaceDetails;
 
-        public InvoiceController(InterfaceInvoice interfaceInvoice , IMapper mapper)
+        public InvoiceController(InterfaceInvoice interfaceInvoice, IMapper mapper,InterfaceDetails interfaceDetails)
         {
             _interfaceInvoice = interfaceInvoice;
             _mapper = mapper;
+            _interfaceDetails = interfaceDetails;
         }
 
         [HttpGet("GetInvoiceDetails")]
@@ -43,14 +45,39 @@ namespace InvoiceCarManagement.Controllers
 
 
         [HttpPost("CreateInvoice")]
-        public async Task<IActionResult> CreateInvoice(InvoiceProductDto invoiceProducts, InvoiceDetailsDto invoiceDetails)
+        public async Task<IActionResult> CreateInvoice(InvoiceProductDto invoiceProducts)
         {
+            var salesMaster = new InvoiceProduct()
+            {
+                CarName = invoiceProducts.CarName,
+                Color = invoiceProducts.Color,
+                Desc = invoiceProducts.Desc,
+                Model = invoiceProducts.Model,
+                Price = invoiceProducts.Price,
+                Quentity = invoiceProducts.Quentity
 
-            var InvoiceToCreate = _mapper.Map<InvoiceProduct>(invoiceProducts);
-            var InvoiceDetails = _mapper.Map<InvoiceDetails>(invoiceDetails);
-            _interfaceInvoice.Add(InvoiceToCreate, InvoiceDetails);
+            };
+
+            _interfaceInvoice.Add(salesMaster);
             await _interfaceInvoice.SaveChanges();
-            return Ok(InvoiceToCreate);
+
+            foreach (var i in invoiceProducts.InvoiceDetails)
+            {
+                var saleInvoiceDetail = new InvoiceDetails()
+                {
+                  InvoiceProductId= salesMaster.ID,
+                    Name = i.Name,
+                    Address = i.Address,
+                    PhoneNumber = i.PhoneNumber,
+                    Email = i.Email,
+                    Date = i.Date
+
+                };
+
+                _interfaceDetails.Add(saleInvoiceDetail);
+                await _interfaceDetails.SaveChanges();
+            }
+            return Ok(salesMaster);
 
         }
 
@@ -100,10 +127,10 @@ namespace InvoiceCarManagement.Controllers
             //exitsInvoice.Date = invoiceDetails.Date;
 
 
-      
 
-        //Save Changes
-        await _interfaceInvoice.SaveChanges();
+
+            //Save Changes
+            await _interfaceInvoice.SaveChanges();
 
 
             return Ok(" interfaceInvoice Updated Successfully ");

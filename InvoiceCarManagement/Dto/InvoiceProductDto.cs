@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvoiceCarManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace InvoiceCarManagement.Dto
         public int Quentity { get; set; }
         public string Desc { get; set; }
         public string Color { get; set; }
-    }
+        public ICollection<InvoiceDetailsDto>  InvoiceDetails{ get; set; }
+    } 
 }
