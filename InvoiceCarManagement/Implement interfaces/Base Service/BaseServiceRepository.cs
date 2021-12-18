@@ -24,6 +24,11 @@ namespace InvoiceCarManagement.Implement_interfaces
             _context.Set<T>().Add(entity);
         }
 
+        public void Add(T entity, InvoiceDetails invoiceDetails)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<T>> GetAll()
         {
             return await _context.Set<T>().ToListAsync();

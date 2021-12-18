@@ -13,6 +13,6 @@ namespace InvoiceCarManagement.Interfaces
         Task<List<T>> GetAll();
         Task<bool> SaveChanges();
         void Remove(T entity);
-        void Add(T entity);
+        void Add(T entity, InvoiceDetails invoiceDetails);
     }
     }

@@ -43,7 +43,7 @@ namespace InvoiceCarManagement
        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<InterfaceInvoice, InvoiceRepository>();
-            services.AddScoped<InterfaceInvoice, InvoiceDetails >();
+           // services.AddScoped<InterfaceInvoice, InvoiceDetailsRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

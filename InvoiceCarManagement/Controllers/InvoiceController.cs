@@ -43,11 +43,12 @@ namespace InvoiceCarManagement.Controllers
 
 
         [HttpPost("CreateInvoice")]
-        public async Task<IActionResult> CreateInvoice(InvoiceProductDto invoiceProducts)
+        public async Task<IActionResult> CreateInvoice(InvoiceProductDto invoiceProducts, InvoiceDetailsDto invoiceDetails)
         {
 
             var InvoiceToCreate = _mapper.Map<InvoiceProduct>(invoiceProducts);
-            _interfaceInvoice.Add(InvoiceToCreate);
+            var InvoiceDetails = _mapper.Map<InvoiceDetails>(invoiceDetails);
+            _interfaceInvoice.Add(InvoiceToCreate, InvoiceDetails);
             await _interfaceInvoice.SaveChanges();
             return Ok(InvoiceToCreate);
 
@@ -56,14 +57,14 @@ namespace InvoiceCarManagement.Controllers
         [HttpDelete("DeleteInvoice")]
         public async Task<IActionResult> DeleteInvoice(int id)
         {
-            var exitsCurrency = await _interfaceInvoice.GetById(id);
+            var exitsInvoice = await _interfaceInvoice.GetById(id);
 
 
-            if (exitsCurrency != null)
+            if (exitsInvoice != null)
             {
 
                 //save changes
-                _interfaceInvoice.Remove(exitsCurrency);
+                _interfaceInvoice.Remove(exitsInvoice);
                 await _interfaceInvoice.SaveChanges();
                 return Ok(" interfaceInvoice Deleted Successfully");
             }
@@ -88,8 +89,21 @@ namespace InvoiceCarManagement.Controllers
             exitsInvoice.Model = invoiceproduct.Model;
             exitsInvoice.Price = invoiceproduct.Price;
             exitsInvoice.Quentity = invoiceproduct.Quentity;
-            //Save Changes
-            await _interfaceInvoice.SaveChanges();
+
+            //2
+
+            //exitsInvoice.Name = invoiceDetails.Name;
+            //exitsInvoice.Address = invoiceDetails.Address;
+            //exitsInvoice.PhoneNumber = invoiceDetails.PhoneNumber;
+
+            //exitsInvoice.Email = invoiceDetails.Email;
+            //exitsInvoice.Date = invoiceDetails.Date;
+
+
+      
+
+        //Save Changes
+        await _interfaceInvoice.SaveChanges();
 
 
             return Ok(" interfaceInvoice Updated Successfully ");

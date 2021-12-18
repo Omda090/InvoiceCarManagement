@@ -9,8 +9,6 @@ namespace InvoiceCarManagement.Dto
     public class InvoiceDetailsDto
     {
         [Required]
-        public int NationalID { get; set; }
-        [Required]
         public string Name { get; set; }
         public string Address { get; set; }
         [Required]
